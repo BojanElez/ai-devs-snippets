@@ -1,0 +1,63 @@
+import { Clock, Pin } from "lucide-react";
+import Link from "next/link";
+
+import { CollectionCard } from "@/components/dashboard/CollectionCard";
+import { ItemRow } from "@/components/dashboard/ItemRow";
+import { StatsCards } from "@/components/dashboard/StatsCards";
+import { collections, pinnedItems, recentItems } from "@/lib/mock-data";
+
+export function DashboardMain() {
+  return (
+    <main className="flex-1 overflow-y-auto p-6">
+      <div className="mx-auto flex max-w-6xl flex-col gap-8">
+        <div>
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <p className="text-muted-foreground">Your developer knowledge hub</p>
+        </div>
+
+        <StatsCards />
+
+        <section>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-lg font-semibold">Collections</h2>
+            <Link
+              href="/collections"
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
+              View all
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {collections.map((collection) => (
+              <CollectionCard key={collection.id} collection={collection} />
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-3 flex items-center gap-2">
+            <Pin className="size-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">Pinned</h2>
+          </div>
+          <div className="flex flex-col gap-3">
+            {pinnedItems.map((item) => (
+              <ItemRow key={item.id} item={item} />
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <div className="mb-3 flex items-center gap-2">
+            <Clock className="size-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">Recent</h2>
+          </div>
+          <div className="flex flex-col gap-3">
+            {recentItems.map((item) => (
+              <ItemRow key={item.id} item={item} />
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
